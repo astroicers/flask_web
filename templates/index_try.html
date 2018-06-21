@@ -1,0 +1,13 @@
+<h1>Hello, world!</h1> <h2>Hello, {{ name }}!</h2>
+
+{% if user == 'ethan' or user =='peter' %}
+    <p> Hello, {{ user }} </p>
+{% else %}
+    <p> Hello, world! </p>
+{% endif %}
+
+<ul>
+    {% for user in user_list %}
+        <li> {{ user }} </li>
+    {% endfor %}
+</ul>
