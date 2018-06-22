@@ -14,7 +14,7 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a>
-                <span class="navbar-brand mb-0 h1">{{name}}</span>
+                <span class="navbar-brand mb-0 h1">忠順 {{search_filter}}</span>
             </a>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
@@ -93,7 +93,12 @@
                             {%for nse_detail in nse_list[target]['vuln']%}
                             <tr>
                                 <td>{{nse_detail}}</td>
-                                <td>{{nse_list[target]['vuln'][nse_detail]['hack']}}</td>
+                                {%if nse_list[target]['vuln'][nse_detail]['hack'] == '1'%}
+                                <td style="color: #ff0000;">Warning</td>
+                                {%else%}
+                                <td style="color: #000000;">No Vulnerable</td>
+                                {%endif%}
+                                <!--<td>{{nse_list[target]['vuln'][nse_detail]['hack']}}</td>-->
                                 <td>{{nse_list[target]['vuln'][nse_detail]['time_man']}}</td>
                             </tr>
                             {%endfor%}
