@@ -2,6 +2,22 @@
 
 from flask import Flask, render_template, request
 from pymongo import MongoClient
+import re
+
+
+def fuzzer_search(fuzzer_input):
+    fuzzer_list = ['product', 'ip', 'extrainfo',
+                   'port',  'name', 'cpe', 'version', 'time_man']
+    out_list = []
+    for fuzzer_data in fuzzer_list:
+        rexExp = re.compile('.*' + fuzzer_input + '.*', re.IGNORECASE)
+        res = mon.toybox.ip_list.find({fuzzer_data: rexExp})
+
+        for rs in res:
+            if rs not in out_list:
+                out_list.append(rs)
+    return out_list
+
 
 app = Flask(__name__)
 mon = MongoClient('mongodb://' + 'root' + ':' + 'example' + '@127.0.0.1')
@@ -9,7 +25,6 @@ mon = MongoClient('mongodb://' + 'root' + ':' + 'example' + '@127.0.0.1')
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
-    #search_filter = request.form['search_filter']
     scan_list = {}
     target_list = []
     nse_list = {}
@@ -17,7 +32,7 @@ def index():
     if request.method == 'POST':
         search_filter = request.form['search_filter']
     # ip form
-    for x in mon.toybox.ip_list.find():
+    for x in fuzzer_search(search_filter):
         if x['ip'] not in target_list:
             target_list.append(x['ip'])
             scan_list.update({x['ip']: {}})
