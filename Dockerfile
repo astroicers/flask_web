@@ -18,4 +18,4 @@ COPY ./ /config/flask_web
 
 EXPOSE 5200
 
-ENTRYPOINT [ "/bin/sh" ]
+ENTRYPOINT [ "python", "/config/flask_web/app.py" ]
