@@ -11,8 +11,7 @@ RUN set -xe \
     && pip install --upgrade pip \
     && pip install requests \
     && pip install flask \
-    && pip install pymongo \
-    && mkdir /config/flask_web
+    && pip install pymongo
 
 COPY ./ /config/flask_web
 
