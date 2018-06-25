@@ -12,7 +12,7 @@ RUN set -xe \
     && pip install requests \
     && pip install flask \
     && pip install pymongo \
-    && mkdir flask_web
+    && mkdir /config/flask_web
 
 COPY ./ /config/flask_web
 
