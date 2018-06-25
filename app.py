@@ -7,7 +7,7 @@ import re
 
 def fuzzer_search(fuzzer_input):
     fuzzer_ip_list = ['product', 'ip', 'extrainfo',
-                   'port',  'name', 'cpe', 'version', 'time_man']
+                      'port',  'name', 'cpe', 'version', 'time_man']
     out_list = []
     for fuzzer_data in fuzzer_ip_list:
         rexExp = re.compile('.*' + fuzzer_input + '.*', re.IGNORECASE)
@@ -17,7 +17,8 @@ def fuzzer_search(fuzzer_input):
             if rs not in out_list:
                 out_list.append(rs)
 
-    fuzzer_nse_list = ['vuln_name','hack']
+    fuzzer_nse_list = ['vuln.ms17-010.hack',
+                       'vuln.ms08-067.hack', 'vuln.ms12-020.hack']
 
     for fuzzer_data in fuzzer_nse_list:
         rexExp = re.compile('.*' + fuzzer_input + '.*', re.IGNORECASE)
