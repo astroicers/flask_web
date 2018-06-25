@@ -13,8 +13,8 @@ RUN set -xe \
     && pip install flask \
     && pip install pymongo
 
-COPY ./ /config/flask_web
+COPY ./ /config
 
 EXPOSE 5200
 
-ENTRYPOINT [ "python", "/config/flask_web/app.py" ]
+ENTRYPOINT [ "python", "/config/app.py" ]
