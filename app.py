@@ -6,16 +6,27 @@ import re
 
 
 def fuzzer_search(fuzzer_input):
-    fuzzer_list = ['product', 'ip', 'extrainfo',
+    fuzzer_ip_list = ['product', 'ip', 'extrainfo',
                    'port',  'name', 'cpe', 'version', 'time_man']
     out_list = []
-    for fuzzer_data in fuzzer_list:
+    for fuzzer_data in fuzzer_ip_list:
         rexExp = re.compile('.*' + fuzzer_input + '.*', re.IGNORECASE)
         res = mon.toybox.ip_list.find({fuzzer_data: rexExp})
 
         for rs in res:
             if rs not in out_list:
                 out_list.append(rs)
+
+    fuzzer_nse_list = ['vuln_name','hack']
+
+    for fuzzer_data in fuzzer_nse_list:
+        rexExp = re.compile('.*' + fuzzer_input + '.*', re.IGNORECASE)
+        res = mon.toybox.nse_list.find({fuzzer_data: rexExp})
+
+        for rs in res:
+            if rs not in out_list:
+                out_list.append(rs)
+
     return out_list
 
 
