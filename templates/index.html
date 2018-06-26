@@ -24,7 +24,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">
-                            任務
+                            任務({{test}})
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="#">掃描</a>
@@ -93,10 +93,10 @@
                             {%for nse_detail in nse_list[target]['vuln']%}
                             <tr>
                                 <td>{{nse_detail}}</td>
-                                {%if nse_list[target]['vuln'][nse_detail]['hack'] == '1'%}
-                                <td style="color: #ff0000;">Warning</td>
+                                {%if nse_list[target]['vuln'][nse_detail]['hack'] == 'Not Thing'%}
+                                <td style="color: #000000;">Not Thing</td>
                                 {%else%}
-                                <td style="color: #000000;">No Vulnerable</td>
+                                <td style="color: #ff0000;">Vulnerable</td>
                                 {%endif%}
                                 <!--<td>{{nse_list[target]['vuln'][nse_detail]['hack']}}</td>-->
                                 <td>{{nse_list[target]['vuln'][nse_detail]['time_man']}}</td>

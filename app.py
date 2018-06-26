@@ -17,8 +17,7 @@ def fuzzer_search(fuzzer_input):
             if rs not in out_list:
                 out_list.append(rs)
 
-    fuzzer_nse_list = ['vuln.ms17-010.hack',
-                       'vuln.ms08-067.hack', 'vuln.ms12-020.hack']
+    fuzzer_nse_list = ['vuln.ms17-010.hack']
 
     for fuzzer_data in fuzzer_nse_list:
         rexExp = re.compile('.*' + fuzzer_input + '.*', re.IGNORECASE)
@@ -45,15 +44,23 @@ def index():
         search_filter = request.form['search_filter']
     # ip form
     for x in fuzzer_search(search_filter):
-        if x['ip'] not in target_list:
-            target_list.append(x['ip'])
-            scan_list.update({x['ip']: {}})
-            nse_list.update({x['ip']: {}})
+        try:
+            if x['ip'] not in target_list:
+                target_list.append(x['ip'])
+                scan_list.update({x['ip']: {}})
+                nse_list.update({x['ip']: {}})
+        except KeyError:
+            if x['_id'] not in target_list:
+                target_list.append(x['_id'])
+                scan_list.update({x['_id']: {}})
+                nse_list.update({x['_id']: {}})
+
     # port form
     for x in target_list:
         for y in mon.toybox.ip_list.find({'ip': x}):
             scan_list[x].update(
                 {y['port']: y, 'time_man': y['time_man'], 'time_pc': y['time_pc']})
+
     # nse form
     for x in target_list:
         for y in mon.toybox.nse_list.find({'_id': x}):
