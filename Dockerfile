@@ -17,4 +17,4 @@ COPY ./ /config
 
 EXPOSE 5200
 
-ENTRYPOINT [ "python", "/config/app.py" ]
+ENTRYPOINT [ "/usr/bin/python", "/config/app.py" ]
