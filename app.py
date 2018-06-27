@@ -34,6 +34,65 @@ app = Flask(__name__)
 mon = MongoClient('mongodb://' + 'root' + ':' + 'example' + '@127.0.0.1')
 
 
+@app.route("/add_task", methods=['GET', 'POST'])
+def scan():
+    #scan_mode_list = ''
+    #ping_list = ''
+    #speed_list = ''
+    #other_list = ''
+
+    if request.method == 'POST':
+        scan_mode_list = request.form.get('scan_mode_list')
+        ping_list = request.form.get('ping_list')
+        speed_list = request.form.get('speed_list')
+        other_listf = request.form.get('other_list-f')
+        other_list6 = request.form.get('other_list-6')
+    return render_template('add_scan.html', scan_mode_list=scan_mode_list, ping_list=ping_list, speed_list=speed_list, other_listf=other_listf, other_list6=other_list6)
+
+
+@app.route("/nmap", methods=['GET', 'POST'])
+def nmap_gui():
+    scan_mode_list = [
+        {
+            'id': '1',
+            'arg': '-sT',
+            'name': 'TCP Connect Scan',
+            'text': u'利用TCP協定，建立完整的3向交握連線後在進行掃描，雖然準確率比較高，但易留下紀錄。'
+        },
+    ]
+    ping_list = [
+        {
+            'id': '1',
+            'arg': '-P0',
+            'name': 'Don\'t Ping',
+            'text': u'執行掃描前，不目標主機。'
+        }
+    ]
+    speed_list = [
+        {
+            'id': '1',
+            'arg': '-T0',
+            'name': 'Paranoid',
+            'text': u'每五秒鐘發送一個封包。'
+        }
+    ]
+    other_list = [
+        {
+            'id': '1',
+            'arg': '-f',
+            'name': 'Fragmentation',
+            'text': u'發送碎片封包，資料長度為8byte，增加封包過濾器、防火牆與IDS的檢查難度。'
+        },
+        {
+            'id': '2',
+            'arg': '-6',
+            'name': 'IPv6',
+            'text': u'支援掃描IPv6。'
+        }
+    ]
+    return render_template('nmap_gui.html', scan_mode_list=scan_mode_list, ping_list=ping_list, speed_list=speed_list, other_list=other_list)
+
+
 @app.route("/", methods=['GET', 'POST'])
 def index():
     scan_list = {}
