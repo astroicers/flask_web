@@ -58,9 +58,10 @@
     </FORM>
 -->
             <form action="add_task" method="POST">
-                
-                    <h2>掃描模式</h2>
-                    <!--
+                <input class="form-control mr-sm-1 mb-sm-1" type="search" placeholder="Search" aria-label="Search" name="search_filter" style="width:80%">
+                <button class="btn btn-outline-success my-2 my-sm-0 mb-sm-1" type="submit">搜尋</button>
+                <h2>掃描模式</h2>
+                <!--
                     -sT: (TCP Connect Scan)
                     -sS: (SYN Stealth Scan)
                     -sA: (ACK Scan)
@@ -73,17 +74,17 @@
                     -sP: (Ping Sweep)
                     利用TCP協定，建立完整的3向交握連線後在進行掃描，雖然準確率比較高，但易留下紀錄。
                 -->
-                    {% for x in scan_mode_list %}
-                    <div class="form-check">
-                        <label>
-                            <input type="radio" name="scan_mode_list">
-                            <span class="label-text">{{ x.name }}</span>
-                            <p>{{x.text}}</p>
-                        </label>
-                    </div>
-                    {% endfor %}
-                    <h2>Ping相關選項</h2>
-                    <!--
+                {% for x in scan_mode_list %}
+                <div class="form-check">
+                    <label>
+                        <input type="radio" name="scan_mode_list">
+                        <span class="label-text">{{ x.name }}</span>
+                        <p>{{x.text}}</p>
+                    </label>
+                </div>
+                {% endfor %}
+                <h2>Ping相關選項</h2>
+                <!--
                     -P0: (Don't Ping)
                     -PI: (ICMP Echo)
                     -PE: (Use ICMP Ping Host)
@@ -92,17 +93,17 @@
                     -PA: (TCP ACK Ping)
                     -PU: (UDP Ping)
                 -->
-                    {% for x in ping_list %}
-                    <div class="form-check">
-                        <label>
-                            <input type="radio" name="ping_list">
-                            <span class="label-text">{{ x.name }}</span>
-                            <p>{{x.text}}</p>
-                        </label>
-                    </div>
-                    {% endfor %}
-                    <h2>設定掃描速度</h2>
-                    <!--
+                {% for x in ping_list %}
+                <div class="form-check">
+                    <label>
+                        <input type="radio" name="ping_list">
+                        <span class="label-text">{{ x.name }}</span>
+                        <p>{{x.text}}</p>
+                    </label>
+                </div>
+                {% endfor %}
+                <h2>設定掃描速度</h2>
+                <!--
                     -T0: (Paranoid)
                     -T1: (Sneaky) 
                     -T2: (Polite) 
@@ -110,30 +111,31 @@
                     -T4: (Aggressive) 
                     -T5: (Insane) 
                 -->
-                    {% for x in speed_list %}
-                    <div class="form-check">
-                        <label>
-                            <input type="radio" name="speed_list">
-                            <span class="label-text">{{ x.name }}</span>
-                            <p>{{x.text}}</p>
-                        </label>
-                    </div>
-                    {% endfor %}
-                    <h2>其他常用選項</h2>
-                    <!--
+                {% for x in speed_list %}
+                <div class="form-check">
+                    <label>
+                        <input type="radio" name="speed_list">
+                        <span class="label-text">{{ x.name }}</span>
+                        <p>{{x.text}}</p>
+                    </label>
+                </div>
+                {% endfor %}
+                <h2>其他常用選項</h2>
+                <!--
                     -f: (Fragmentation)
                     -6: (IPv6)
                 -->
-                    {% for x in other_list %}
-                    <div class="form-check">
-                        <label>
-                            <input type="checkbox" name="other_list{{x.arg}}">
-                            <span class="label-text">{{ x.name }}</span>
-                            <p>{{x.text}}</p>
-                        </label>
-                    </div>
-                    {% endfor %}
-                <INPUT type="submit" value="Send"> <INPUT type="reset">
+                {% for x in other_list %}
+                <div class="form-check">
+                    <label>
+                        <input type="checkbox" name="other_list{{x.arg}}">
+                        <span class="label-text">{{ x.name }}</span>
+                        <p>{{x.text}}</p>
+                    </label>
+                </div>
+                {% endfor %}
+                <INPUT type="submit" value="Send">
+                <INPUT type="reset">
             </form>
         </div>
         <div class="col-8">
