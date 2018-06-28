@@ -3,6 +3,7 @@
 from flask import Flask, render_template, request
 from pymongo import MongoClient
 import re
+import subprocess
 
 
 def fuzzer_search(fuzzer_input):
@@ -36,18 +37,34 @@ mon = MongoClient('mongodb://' + 'root' + ':' + 'example' + '@127.0.0.1')
 
 @app.route("/add_task", methods=['GET', 'POST'])
 def scan():
-    #scan_mode_list = ''
-    #ping_list = ''
-    #speed_list = ''
-    #other_list = ''
+    command = [
+        'python2.7', '/config/muti_nmap_mongo.py']
 
     if request.method == 'POST':
+        search_host = request.form.get('search_host')
+        search_port = request.form.get('search_port')
+        search_threads = request.form.get('search_threads')
+
         scan_mode_list = request.form.get('scan_mode_list')
         ping_list = request.form.get('ping_list')
         speed_list = request.form.get('speed_list')
         other_listf = request.form.get('other_list-f')
         other_list6 = request.form.get('other_list-6')
-    return render_template('add_scan.html', scan_mode_list=scan_mode_list, ping_list=ping_list, speed_list=speed_list, other_listf=other_listf, other_list6=other_list6)
+    command.append('-i')
+    command.append(search_host)
+    command.append('-p')
+    command.append(search_port)
+    command.append('-t')
+    command.append(search_threads)
+    command.append('-a')
+    temp2 = [scan_mode_list, ping_list, speed_list, other_listf, other_list6]
+    temp = ''
+    for x in temp2:
+        if x != None:
+            temp += x+' '
+    command.append(temp)
+    process = subprocess.Popen(command, stderr=subprocess.PIPE)
+    return render_template('add_scan.html', command=command)
 
 
 @app.route("/nmap", methods=['GET', 'POST'])

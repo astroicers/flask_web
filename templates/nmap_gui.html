@@ -42,24 +42,11 @@
     </header>
     <div class="row">
         <div class="col-4">
-            <!--
-    <FORM action="http://somesite.com/prog/adduser" method="post">
-    <P>
-    <LABEL for="firstname">First name: </LABEL>
-              <INPUT type="text" id="firstname"><BR>
-    <LABEL for="lastname">Last name: </LABEL>
-              <INPUT type="text" id="lastname"><BR>
-    <LABEL for="email">email: </LABEL>
-              <INPUT type="text" id="email"><BR>
-    <INPUT type="radio" name="sex" value="Male"> Male<BR>
-    <INPUT type="radio" name="sex" value="Female"> Female<BR>
-    <INPUT type="submit" value="Send"> <INPUT type="reset">
-    </P>
-    </FORM>
--->
             <form action="add_task" method="POST">
-                <input class="form-control mr-sm-1 mb-sm-1" type="search" placeholder="Search" aria-label="Search" name="search_filter" style="width:80%">
-                <button class="btn btn-outline-success my-2 my-sm-0 mb-sm-1" type="submit">搜尋</button>
+                <input class="form-control mr-sm-1 mb-sm-1" type="text" placeholder="Host" aria-label="text" name="search_host" style="width:40%">
+                <input class="form-control mr-sm-1 mb-sm-1" type="text" placeholder="Port" aria-label="text" name="search_port" style="width:40%">
+                <input class="form-control mr-sm-1 mb-sm-1" type="text" placeholder="Threads" aria-label="text" name="search_threads" style="width:40%">
+                
                 <h2>掃描模式</h2>
                 <!--
                     -sT: (TCP Connect Scan)
@@ -72,12 +59,11 @@
                     -sU: (UDP Scan)
                     -sO: (IP Protocol Scan)
                     -sP: (Ping Sweep)
-                    利用TCP協定，建立完整的3向交握連線後在進行掃描，雖然準確率比較高，但易留下紀錄。
                 -->
                 {% for x in scan_mode_list %}
                 <div class="form-check">
                     <label>
-                        <input type="radio" name="scan_mode_list">
+                        <input type="radio" name="scan_mode_list" value="{{x.arg}}">
                         <span class="label-text">{{ x.name }}</span>
                         <p>{{x.text}}</p>
                     </label>
@@ -96,7 +82,7 @@
                 {% for x in ping_list %}
                 <div class="form-check">
                     <label>
-                        <input type="radio" name="ping_list">
+                        <input type="radio" name="ping_list" value="{{x.arg}}">
                         <span class="label-text">{{ x.name }}</span>
                         <p>{{x.text}}</p>
                     </label>
@@ -114,7 +100,7 @@
                 {% for x in speed_list %}
                 <div class="form-check">
                     <label>
-                        <input type="radio" name="speed_list">
+                        <input type="radio" name="speed_list" value="{{x.arg}}">
                         <span class="label-text">{{ x.name }}</span>
                         <p>{{x.text}}</p>
                     </label>
@@ -128,14 +114,14 @@
                 {% for x in other_list %}
                 <div class="form-check">
                     <label>
-                        <input type="checkbox" name="other_list{{x.arg}}">
+                        <input type="checkbox" name="other_list{{x.arg}}" value="{{x.arg}}">
                         <span class="label-text">{{ x.name }}</span>
                         <p>{{x.text}}</p>
                     </label>
                 </div>
                 {% endfor %}
-                <INPUT type="submit" value="Send">
-                <INPUT type="reset">
+                <button class="btn btn-outline-success my-2 my-sm-0 mb-sm-1" type="submit">送出</button>
+                <input class="btn btn-outline-success my-2 my-sm-0 mb-sm-1" type="reset">
             </form>
         </div>
         <div class="col-8">
